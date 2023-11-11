@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {sleep} from "openai/core";
 
 export default class ImageText {
     sendText(inputText) {
@@ -12,24 +13,26 @@ export default class ImageText {
                 if (line === '') {
                     continue;
                 }
-                try {
-                    axios.post('http://192.168.88.40:8000/send_text', {
-                        text: line,
-                    }, {
-                        'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-                        'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
-                    })
-                        .then(function (response) {
-                            console.log(response);
+                setTimeout(() => {
+                    try {
+                        axios.post('http://192.168.88.40:8000/send_text', {
+                            text: line,
+                        }, {
+                            'Content-Type': 'application/json',
+                            'Access-Control-Allow-Origin': '*',
+                            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+                            'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
                         })
-                        .catch(function (error) {
-                            console.log(error);
-                        });
-                } catch (error) {
-                    console.log(error);
-                }
+                            .then(function (response) {
+                                console.log(response);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    } catch (error) {
+                        console.log(error);
+                    }
+                }, 2000);
             }
         }
     }

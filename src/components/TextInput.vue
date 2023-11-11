@@ -20,7 +20,7 @@ onMounted(() => {
   bayern.getListOfDescriptions().then(res => {
     openai.value!.chat!.completions.create({
       messages: [{
-        role: "user", content: "Please write some fun facts and funny be creative about Bavaria in Bavarian Dialact or German and use the following context to generate it.Only provide the Funfacts and don't explain your self at most give 3 sentences: \n\n" + res
+        role: "user", content: "Please write some goofy, fun facts and funny be creative about Bavaria in Bavarian Dialact or German and use the following context to generate it.Don't be too close to the source material. Only provide the Funfacts and don't explain your self at most give 3 sentences: \n\n" + res
       }],
       model: "gpt-3.5-turbo",
       temperature: 0.7
