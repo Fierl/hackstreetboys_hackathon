@@ -5,8 +5,6 @@ const imageText = new ImageText();
 
 import OpenAI from "openai";
 import {onMounted, ref} from "vue";
-
-console.log(import.meta.env.VITE_OPENAI_API_KEY)
 const openai = ref(null);
 
 onMounted(() => {
@@ -18,10 +16,10 @@ onMounted(() => {
 
 function getAsciiCode(text) {
   openai.value.chat.completions.create({
-    messages: [{role: "user", content: "Don't explain yourself. Just send me a Ascii art of maximum 6 Lines for the given text: " + text}],
+    messages: [{role: "user", content: "Generate a concise and creative ASCII art representation for the word" + text + "with a maximum of 6 lines."}],
     model: "gpt-3.5-turbo",
   }).then((response) => {
-    console.log(response.choices[0].message.content);
+    imageText.sendText(response.choices[0].message.content);
   }).catch((error) => {
     console.log(error);
   });
@@ -40,7 +38,7 @@ defineProps<{
       <input class="input-field center-input" v-model="imageText.text"/>
     </div>
     <div class="container">
-      <button class="waves-effect waves-light btn center-button" @click="getAsciiCode('house')">Display on
+      <button class="waves-effect waves-light btn center-button" @click="getAsciiCode(imageText.text)">Display on
         device
       </button>
     </div>
