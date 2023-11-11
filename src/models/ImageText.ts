@@ -1,11 +1,10 @@
 import axios from 'axios';
 
 export default class ImageText {
-    sendText(text) {
+    sendText(inputText) {
         try {
-            axios.post('http://192.168.88.53:8000/test/' + text, {
-                firstName: 'Fred',
-                lastName: 'Flintstone'
+            axios.post('http://192.168.88.40:8000/send_text', {
+                text: inputText,
             }, {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
